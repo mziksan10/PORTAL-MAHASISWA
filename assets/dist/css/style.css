@@ -1,0 +1,15 @@
+.custom-bg-welcome{
+    background-image: url('../img/bg_welcome.png');
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.custom-color-bg{
+    background-color: blueviolet;
+}
+
+.custom-color-font{
+    color: white;
+}
+

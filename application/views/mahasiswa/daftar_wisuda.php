@@ -118,27 +118,42 @@
         <div class="row g-0">
             <div class="col-md-12">
             <div class="card-body">
-                <form action="<?= base_url('mahasiswa/daftar_wisuda_aksi'); ?>">
+              <form action="<?= base_url('mahasiswa/aksi_buku_wisuda'); ?>" method="POST" enctype="multipart/form-data">
                 <table class="table table-striped">
                     <tr>
-                    <th class="col-md-2">Pas Foto 2x3</th>
-                    <td><input type="file" class="form-control" name="foto"></td>
+                    <th class="col-md-2">Pas Foto<br><small>*Foto harus berukuran 2 MB.</small></th>
+                    <td>
+                      <input type="file" class="form-control" name="userfile">
+                      <?php if($this->session->flashdata('error')){echo $this->session->flashdata('error');}?>
+                    </td>
                     </tr> 
                     <tr>
                     <th class="col-md-2">NPM</th>
-                    <td><input type="text" class="form-control" value="<?= trim($npm); ?>" name="npm"></td>
+                    <td>
+                      <input type="text" class="form-control" value="<?= trim($npm); ?>" name="npm">
+                      <?= form_error('npm', '<div class="text-danger small ml-3">','</div>'); ?>
+                    </td>
                     </tr>
                     <tr>
                     <th>Nama Lengkap</th>
-                    <td><input type="text" class="form-control"  value="<?= trim(ucwords(strtolower($nama))); ?>" name="nama"></td>
+                    <td>
+                      <input type="text" class="form-control"  value="<?= trim(ucwords(strtolower($nama))); ?>" name="nama">
+                      <?= form_error('nama', '<div class="text-danger small ml-3">','</div>'); ?>
+                    </td>
                     </tr>
                     <tr>
                     <th>Tempat Lahir</th>
-                    <td><input type="text" class="form-control"  value="<?= trim(ucwords(strtolower($tempat_lahir))); ?>" name="tempat_lahir"></td>
+                    <td>
+                      <input type="text" class="form-control"  value="<?= trim(ucwords(strtolower($tempat_lahir))); ?>" name="tempat_lahir">
+                      <?= form_error('tempat_lahir', '<div class="text-danger small ml-3">','</div>'); ?>
+                    </td>
                     </tr>
                     <tr>
                     <th>Tanggal Lahir</th>
-                    <td><input type="date" class="form-control"  value="<?= trim($tanggal_lahir); ?>" name="tanggal_lahir"></td>
+                    <td>
+                      <input type="date" class="form-control"  value="<?= trim($tanggal_lahir); ?>" name="tanggal_lahir">
+                      <?= form_error('tanggal_lahir', '<div class="text-danger small ml-3">','</div>'); ?>
+                    </td>
                     </tr>
                     <tr>
                     <th>Program Studi</th>
@@ -149,37 +164,54 @@
                       <option value="<?= trim(ucwords(strtolower($row->nama_program_studi))); ?>"><?= trim(ucwords(strtolower($row->nama_program_studi))); ?></option>
                       <?php }endforeach;?>
                     </select>  
+                    <?= form_error('prodi', '<div class="text-danger small ml-3">','</div>'); ?>
                     <tr>
                     <th>Pembimbing I</th>
                     <td>
-                      <input type="text" class="form-control"  name="pem1">
+                      <input type="text" class="form-control"  name="pembimbing_1">
+                      <?= form_error('pembimbing_1', '<div class="text-danger small ml-3">','</div>'); ?>
                     </td>
                     </tr>
                     <tr>
-                    <th>Pembimbing II (Opsional)</th>
-                    <td><input type="text" class="form-control" name="pem2"></td>
+                    <th>Pembimbing II<br><small>*Bagi yang memiliki 2 Pembimbing</small></th>
+                    <td>
+                      <input type="text" class="form-control" name="pembimbing_2">
+                      <?= form_error('pembimbing_2', '<div class="text-danger small ml-3">','</div>'); ?>
+                  </td>
                     </tr>
                     <tr>
                     <th>Judul Karya Ilmiah</th>
-                    <td><textarea name="judul" class="form-control" cols="30" rows="10" placeholder="Ketik disini.."></textarea></td>
+                    <td>
+                      <textarea name="judul_karya_ilmiah" class="form-control" cols="30" rows="10" placeholder="Ketik disini.."></textarea>
+                      <?= form_error('judul_karya_ilmiah', '<div class="text-danger small ml-3">','</div>'); ?>
+                    </td>
                     </tr>
                     <tr>
-                    <th>Link Jurnal</th>
-                    <td><input type="text" class="form-control" name="link"></td>
+                    <th>Link Jurnal<br><small>*Bagi yang publikasi</small></th>
+                    <td>
+                      <input type="text" class="form-control" name="link_jurnal">
+                      <?= form_error('link_jurnal', '<div class="text-danger small ml-3">','</div>'); ?>
+                    </td>
                     </tr>
                     <tr>
                     <th>PKL/Bekerja di</th>
-                    <td><input type="text" class="form-control" name="pkl"></td>
+                    <td>
+                      <input type="text" class="form-control" name="pkl_atau_bekerja">
+                      <?= form_error('pkl_atau_bekerja', '<div class="text-danger small ml-3">','</div>'); ?>
+                    </td>
                     </tr>
                     <tr>
                     <th>Alamat Lengkap</th>
-                    <td><textarea name="alamat" class="form-control" cols="30" rows="10" placeholder="Ketik disini.."><?= trim($alamat); ?></textarea></td>
+                    <td>
+                      <textarea name="alamat" class="form-control" cols="30" rows="10" placeholder="Ketik disini.."><?= trim($alamat); ?></textarea>
+                      <?= form_error('alamat', '<div class="text-danger small ml-3">','</div>'); ?>
+                    </td>
                     </tr>
                 </table>
-                <button class="btn btn-primary"><i class="nav-icon fas fa-save"></i> Simpan</button>
+                <button type="submit" name="save" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> Simpan</button>
                 <span><p class="card-text float-right"><small class="text-muted">*dimohon untuk mengisi data secara lengkap & benar.</small></p></span>    
-            </form>
-            </div>
+              </form>
+              </div>
             </div>
         </div>
         </div>

@@ -6,6 +6,7 @@ class Mahasiswa extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->helper(array('form', 'url'));
         if(!isset($this->session->userdata['status'])){
             $this->session->set_flashdata(
                 'message',
@@ -146,6 +147,116 @@ class Mahasiswa extends CI_Controller
         $this->load->view('mahasiswa/header.php', $data);
         $this->load->view('mahasiswa/daftar_wisuda.php', $data);
         $this->load->view('mahasiswa/footer.php'); 
+    }
+
+    public function aksi_buku_wisuda(){
+        $this->_rules();
+        if($this->form_validation->run() == false){
+            $this->daftar_buku_wisuda();
+        }else{
+        $npm = $this->input->post('npm');
+        $nama = $this->input->post('nama');
+        $tempat_lahir = $this->input->post('tempat_lahir');
+        $tanggal_lahir = $this->input->post('tanggal_lahir');
+        $prodi = $this->input->post('prodi');
+        $pembimbing_1 = $this->input->post('pembimbing_1');
+        $pembimbing_2 = $this->input->post('pembimbing_2');
+        $judul_karya_ilmiah = $this->input->post('judul_karya_ilmiah');
+        $link_jurnal = $this->input->post('link_jurnal');
+        $pkl_atau_bekerja = $this->input->post('pkl_atau_bekerja');
+        $alamat = $this->input->post('alamat');
+    
+        $file_name = str_replace('.','',$npm);
+        $config['file_name'] = $file_name;
+        $config['upload_path'] = './assets/dist/img/foto/';
+        $config['allowed_types'] = 'png|jpg|jpeg';
+        $config['max_size'] = 2048;
+        $config['overwrite'] = true;
+
+        $this->upload->initialize($config);
+
+        if(!$this->upload->do_upload('userfile')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->session->set_flashdata('error', '<div class="text-danger small ml-3">'.$error['error'].'</div>' );
+            redirect('mahasiswa/daftar_buku_wisuda','refresh');
+        }else{
+            $foto = $this->upload->data('file_name');
+        }
+
+        $data = array(
+            'npm' => $npm,
+            'nama' => $nama,
+            'tempat_lahir' => $tempat_lahir,
+            'tanggal_lahir' => $tanggal_lahir,
+            'prodi' => $prodi,
+            'pembimbing_1' => $pembimbing_1,
+            'pembimbing_2' => $pembimbing_2,
+            'judul_karya_ilmiah' => $judul_karya_ilmiah,
+            'link_jurnal' => $link_jurnal,
+            'pkl_atau_bekerja' => $pkl_atau_bekerja,
+            'alamat' => $alamat,
+            'foto' => $foto,
+        );
+        $this->M_bukuwisuda->input_data($data);
+        redirect('mahasiswa/daftar_buku_wisuda');
+        }
+    }
+
+    public function _rules(){
+          $this->form_validation->set_rules(
+            'npm',
+            'Npm',
+            'required',
+            ['required' => 'NPM tidak boleh kosong!']
+          );
+          $this->form_validation->set_rules(
+            'nama',
+            'Nama',
+            'required',
+            ['required' => 'Nama tidak boleh kosong!']
+          );
+          $this->form_validation->set_rules(
+            'tempat_lahir',
+            'Tempat Lahir',
+            'required',
+            ['required' => 'Tempat Lahir tidak boleh kosong!']
+          );
+          $this->form_validation->set_rules(
+            'tanggal_lahir',
+            'Tanggal Lahir',
+            'required',
+            ['required' => 'Tanggal Lahir tidak boleh kosong!']
+          );
+          $this->form_validation->set_rules(
+            'pembimbing_1',
+            'Pembimbing I',
+            'required',
+            ['required' => 'Pembimbing I tidak boleh kosong!']
+          );
+          $this->form_validation->set_rules(
+            'judul_karya_ilmiah',
+            'Judul Karya Ilmiah',
+            'required',
+            ['required' => 'Judul Karya Ilmiah tidak boleh kosong!']
+          );
+          $this->form_validation->set_rules(
+            'link_jurnal',
+            'Link Jurnal',
+            'required',
+            ['required' => 'Link Jurnal tidak boleh kosong!']
+          );
+          $this->form_validation->set_rules(
+            'pkl_atau_bekerja',
+            'PKL atau Bekerja',
+            'required',
+            ['required' => 'PKL/Bekerja tidak boleh kosong!']
+          );
+          $this->form_validation->set_rules(
+            'alamat',
+            'Alamat',
+            'required',
+            ['required' => 'Alamat tidak boleh kosong!']
+          );
     }
 
 }

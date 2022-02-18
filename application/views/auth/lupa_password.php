@@ -12,16 +12,19 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p align="center"><?= $title; ?></p>
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <strong>Halo!</strong> bagi Mahasiswa Baru, silahkan registrasi terlebih dahulu menggunakan NPM anda. Jika sudah abaikan pesan ini.
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <?= $this->session->flashdata('message'); ?>
-      <form action="<?= base_url('auth/aksi_login')?>" method="post" autocomplete="off">
+      <?= $this->session->flashdata('message'); ?>
+      <form action="<?= base_url('auth/aksi_lupa_password')?>" method="post">
+      <div class="input-group mb-1">
+          <input type="text" class="form-control" placeholder="Email Terdaftar" name="email" value="<?= set_value('email');?>">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <?= form_error('npm', '<div class="text-danger small ml-3">','</div>'); ?>
         <div class="input-group mb-1">
-          <input type="text" class="form-control" placeholder="NPM" name="npm">
+          <input type="text" class="form-control" placeholder="NPM" name="npm" value="<?= set_value('npm');?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -30,7 +33,7 @@
         </div>
         <?= form_error('npm', '<div class="text-danger small ml-3">','</div>'); ?>
         <div class="input-group mb-1">
-          <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off">
+          <input type="password" class="form-control" placeholder="Password Baru" name="password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -38,20 +41,24 @@
           </div>
         </div>
         <?= form_error('password', '<div class="text-danger small ml-3">','</div>'); ?>
+        <div class="input-group mb-1">
+          <input type="password" class="form-control" placeholder="Konfirmasi Password Baru" name="password2">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <?= form_error('password2', '<div class="text-danger small ml-3">','</div>'); ?>
         <div class="row mt-2">
           <div class="col-8">
-          <p class="mb-0">Belum punya akun?
-            <a href="<?= base_url('auth/register'); ?>" class="text-center">Klik daftar</a>
+          <p class="mb-0">
+            <a class="align-middle btn btn-primary" href="<?= base_url('auth'); ?>" class="text-center"><i class="fas fa-arrow-left mr-2"></i> Kembali</a>
           </p>
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
-          </div>
-          <div class="col-12">
-          <p class=" mt-2 mb-0" align="center">
-            <a href="<?= base_url('auth/lupa_password'); ?>" class="text-center">Lupa Password?</a>
-          </p>   
+            <button type="submit" class="btn btn-primary btn-block">Kirim</button>
           </div>
           <!-- /.col -->
         </div>

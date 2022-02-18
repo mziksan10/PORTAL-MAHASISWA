@@ -31,6 +31,9 @@
 
     <!-- Icon -->
     <link rel="icon" href="<?= base_url('assets/')?>dist/img/piksi.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -64,8 +67,7 @@
       </a>
 
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="<?= base_url('auth/change_pass'); ?>"><i class="nav-icon fas fa-key mr-2"></i>Ubah password</a>
-        <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>"><i class="nav-icon fas fa-power-off mr-2"></i>Keluar</a>
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logout"><i class="nav-icon fas fa-power-off mr-2"></i>Keluar</a>
       </div>
     </div>
     </ul>
@@ -145,7 +147,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
+            <a href="#" class="nav-link"  data-toggle="modal" data-target="#logout">
               <i class="nav-icon fas fa-power-off"></i>
               <p>
                 Keluar
@@ -158,3 +160,24 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+  <!-- Modal -->
+<div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutLabel">Keluar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Anda Yakin Akan Keluar?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <a href="<?= base_url('auth/logout'); ?>" class="btn btn-primary">Keluar</a>
+      </div>
+    </div>
+  </div>
+</div>

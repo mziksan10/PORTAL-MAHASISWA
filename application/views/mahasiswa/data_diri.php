@@ -39,8 +39,39 @@
                     <td>: <?= $kelas; ?></td>
                     </tr>
                     <tr>
+                    <?php 
+                      switch ($semester){
+                          case "1":
+                              $smt_huruf = '(Satu)';
+                              break;
+                          case "2":
+                          $smt_huruf = '(Dua)';
+                          break;
+                          case "3":
+                          $smt_huruf = '(Tiga)';;
+                          break;
+                          case "4":
+                          $smt_huruf = '(Empat)';;
+                          break;
+                          case "5":
+                          $smt_huruf = '(Lima)';;
+                          break;
+                          case "6":
+                          $smt_huruf = '(Enam)';;
+                          break;              
+                          case "7":
+                          $smt_huruf = '(Tujuh)';;
+                          break;
+                          case "8":
+                          $smt_huruf = '(Delapan)';;
+                          break;                
+                            default:
+                              echo "Semeter tidak di Ketahui!";
+                      }
+                      
+                      ?>
                     <th>Semester</th>
-                    <td>: <?= $semester; ?></td>
+                    <td>: <?= $semester; ?> <?= $smt_huruf; ?></td>
                     </tr>
                     <tr>
                     <th>Nama Lengkap</th>

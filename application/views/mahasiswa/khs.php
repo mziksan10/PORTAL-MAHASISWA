@@ -64,7 +64,7 @@
                       <tr style="text-align: center;">
                         <td><?= $no++; ?></td>
                         <td><?= $row->KodeMatkul; ?></td>
-                        <td><?= $row->Matkul; ?></td>
+                        <td><?= $row->namamatkul; ?></td>
                         <td><?php if(is_numeric($row->SKS)){ echo $row->SKS; }?></td>
                         <td><?= round($row->nilaiuts); ?></td>
                         <td><?= round($row->nilaiuas); ?></td>

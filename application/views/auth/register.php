@@ -14,6 +14,15 @@
       <p align="center"><?= $title; ?></p>
       <?= $this->session->flashdata('message'); ?>
       <form action="<?= base_url('auth/aksi_register')?>" method="post">
+      <div class="input-group mb-1">
+          <input type="text" class="form-control" placeholder="Email Aktif" name="email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <?= form_error('npm', '<div class="text-danger small ml-3">','</div>'); ?>
         <div class="input-group mb-1">
           <input type="text" class="form-control" placeholder="NPM" name="npm">
           <div class="input-group-append">

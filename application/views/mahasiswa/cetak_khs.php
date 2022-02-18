@@ -21,9 +21,40 @@
         <td style="text-align: left;"><?= $kelas; ?></td>
     </tr>
     <tr>
+        <?php 
+        switch ($smt){
+            case "1":
+                $smt_huruf = '(Satu)';
+                break;
+            case "2":
+            $smt_huruf = '(Dua)';
+            break;
+            case "3":
+            $smt_huruf = '(Tiga)';;
+            break;
+            case "4":
+            $smt_huruf = '(Empat)';;
+            break;
+            case "5":
+            $smt_huruf = '(Lima)';;
+            break;
+            case "6":
+            $smt_huruf = '(Enam)';;
+            break;              
+            case "7":
+            $smt_huruf = '(Tujuh)';;
+            break;
+            case "8":
+            $smt_huruf = '(Delapan)';;
+            break;                
+              default:
+                echo "Semeter tidak di Ketahui!";
+        }
+        
+        ?>
         <th style="text-align: left;">Semester</th>
         <td>:</td>
-        <td style="text-align: left;"><?= $smt; ?></td>
+        <td style="text-align: left;"><?= $smt; ?> <?= $smt_huruf;?></td>
     </tr>
 </table>
 
@@ -49,7 +80,7 @@
         <tr style="text-align: center;">
         <td style="border: 1px solid black;"><?= $no++; ?></td>
         <td style="border: 1px solid black;"><?= $row->KodeMatkul; ?></td>
-        <td style="border: 1px solid black; text-align: left;"><?= $row->Matkul; ?></td>
+        <td style="border: 1px solid black; text-align: left;"><?= $row->namamatkul; ?></td>
         <td style="border: 1px solid black;"><?php if(is_numeric($row->SKS)){ echo $row->SKS; }?></td>
         <td style="border: 1px solid black;"><?= $row->nilaiakhir; ?></td>
         <td style="border: 1px solid black;"><?= $row->asss; ?></td>
@@ -110,7 +141,51 @@
             <td style="width: 30%;">
             <table>
                 <tr>
-                    <td><p style="font-size: 10px; text-align: center;">Bandung, <?= date('d F Y')?></p></td>
+                <?php
+                    $bulan = date('F');
+                    switch ($bulan){
+                        case "January":
+                            $bulan_ind = 'Januari';
+                            break;
+                        case "February":
+                        $bulan_ind = 'Februari';
+                        break;
+                        case "March":
+                        $bulan_ind = 'Maret';;
+                        break;
+                        case "April":
+                        $bulan_ind = 'April';;
+                        break;
+                        case "May":
+                        $bulan_ind = 'Mei';;
+                        break;
+                        case "June":
+                        $bulan_ind = 'Juni';;
+                        break;              
+                        case "July":
+                        $bulan_ind = 'Juli';;
+                        break;
+                        case "August":
+                        $bulan_ind = 'Agustus';;
+                        break;
+                        case "September":
+                        $bulan_ind = 'September';;
+                        break;
+                        case "October":
+                        $bulan_ind = 'Oktober';;
+                        break; 
+                        case "November":
+                        $bulan_ind = 'November';;
+                        break;
+                        case "Desember":
+                        $bulan_ind = 'November';;
+                        break;                    
+                        default:
+                            echo "Semeter tidak di Ketahui!";
+                    }
+                    
+                    ?>
+                    <td><p style="font-size: 10px; text-align: center;">Bandung, <?= date('d')?> <?= $bulan_ind; ?> <?= date('Y')?></p></td>
                 </tr>
                 <tr>
                     <td>

@@ -7,7 +7,7 @@ class Mahasiswa extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
-        if(!isset($this->session->userdata['status'])){
+        if(!isset($this->session->userdata['role_id'])){
             $this->session->set_flashdata(
                 'message',
                 '<div class="alert alert-danger" role="alert">
@@ -20,9 +20,9 @@ class Mahasiswa extends CI_Controller
 
     public function index(){
         $data = [
-            'npm' => $this->session->userdata('npm'),
+            'username' => $this->session->userdata('username'),
             'nama' => $this->session->userdata('nama'),
-            'status' => $this->session->userdata('status'),
+            'role_id' => $this->session->userdata('role_id'),
         ];
         
         $data['title'] = "Beranda";
@@ -32,7 +32,7 @@ class Mahasiswa extends CI_Controller
     }
 
     public function data_diri(){
-        $data = $this->M_mahasiswa->ambil_data_mhs($this->session->userdata['npm']);
+        $data = $this->M_mahasiswa->ambil_data_mhs($this->session->userdata['username']);
         $data = array(
             'npm' => $data->npm,
             'jurusan' => $data->nama_jurusan,
@@ -54,7 +54,7 @@ class Mahasiswa extends CI_Controller
     }
 
     public function informasi_dan_layanan(){
-        $data = $this->M_mahasiswa->ambil_data_mhs($this->session->userdata['npm']);
+        $data = $this->M_mahasiswa->ambil_data_mhs($this->session->userdata['username']);
         $data = array(
             'npm' => $data->npm,
             'nama' => $data->nama,
@@ -84,8 +84,8 @@ class Mahasiswa extends CI_Controller
     }
 
     public function khs(){
-        $npm = $this->session->userdata('npm');
-        $data = $this->M_mahasiswa->ambil_data_mhs($this->session->userdata['npm']);
+        $npm = $this->session->userdata('username');
+        $data = $this->M_mahasiswa->ambil_data_mhs($this->session->userdata['username']);
         $data = array(
             'npm' => $data->npm,
             'nama' => $data->nama,
@@ -104,7 +104,7 @@ class Mahasiswa extends CI_Controller
     public function cetak_khs($smt){
         $this->load->library('dompdf_gen');
 
-        $npm = $this->session->userdata('npm');
+        $npm = $this->session->userdata('username');
         $data = array(
             'npm' =>  $npm,
             'nama' =>  $this->session->userdata('nama'),
@@ -124,7 +124,7 @@ class Mahasiswa extends CI_Controller
     }
     
     public function daftar_buku_wisuda(){
-        $data = $this->M_mahasiswa->ambil_data_mhs($this->session->userdata['npm']);
+        $data = $this->M_mahasiswa->ambil_data_mhs($this->session->userdata['username']);
         $data = array(
             'npm' => $data->npm,
             'jurusan' => $data->nama_jurusan,
@@ -139,7 +139,8 @@ class Mahasiswa extends CI_Controller
             'no_hp' => $data->hp,
         );
 
-        $npm = $this->session->userdata('npm');
+        $data['pembimbing'] = $this->M_bukuwisuda->ambil_data_dosen();
+        $npm = $this->session->userdata('username');
         $data['alumni'] = $this->M_bukuwisuda->ambil_data_alumni($npm);
         $data['prodi'] = $this->M_bukuwisuda->ambil_data_prodi();
 
@@ -165,6 +166,7 @@ class Mahasiswa extends CI_Controller
         $link_jurnal = $this->input->post('link_jurnal');
         $pkl_atau_bekerja = $this->input->post('pkl_atau_bekerja');
         $alamat = $this->input->post('alamat');
+        $tanggal_daftar = $this->input->post('tanggal_daftar');
     
         $file_name = str_replace('.','',$npm);
         $config['file_name'] = $file_name;
@@ -196,6 +198,8 @@ class Mahasiswa extends CI_Controller
             'pkl_atau_bekerja' => $pkl_atau_bekerja,
             'alamat' => $alamat,
             'foto' => $foto,
+            'tanggal_daftar' => $tanggal_daftar,
+            'status' => 0
         );
         $this->M_bukuwisuda->input_data($data);
         redirect('mahasiswa/daftar_buku_wisuda');

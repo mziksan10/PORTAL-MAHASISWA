@@ -48,7 +48,7 @@ class Admin extends CI_Controller
         $this->db->from('alumnis');
         $this->db->order_by('status', 'asc');
         $config['total_rows'] = $this->db->count_all_results();
-        $config['per_page'] = 2;
+        $config['per_page'] = 10;
 
 
         // Initialize
@@ -63,6 +63,34 @@ class Admin extends CI_Controller
         $this->load->view('admin/pendaftar_buku_wisuda.php', $data);
         $this->load->view('admin/footer.php');    
     }
+
+    public function terima_pendaftar($id){
+        $data = array(
+            'status' => 1, 
+        );
+        $where = array('id' => $id);
+
+        $this->M_bukuwisuda->update_status_pendaftar($where, $data, 'alumnis');
+        $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success" role="alert">
+            <i class="fas fa-check"></i> Pendaftar berhasil diterima. 
+          </div>'
+          );
+        redirect('admin/pendaftar_buku_wisuda');
+    }
+
+    public function tolak_pendaftar($id){
+        $where = array('id' => $id);
+        $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-danger" role="alert">
+            <i class="fas fa-trash"></i> Pendaftar berhasil ditolak. 
+          </div>'
+          );
+        $this->M_bukuwisuda->hapus_pendaftar($where, 'alumnis');
+        redirect('admin/pendaftar_buku_wisuda');
+    }    
 
     public function export_buku_wisuda(){
         $spreadsheet = new Spreadsheet();

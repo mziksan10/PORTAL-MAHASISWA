@@ -13,6 +13,16 @@ class M_bukuwisuda extends CI_Model
         return $this->db->get('alumnis', $limit, $start)->result();
     }
 
+    function update_status_pendaftar($where, $data, $table){
+        $this->db->where($where);
+        $this->db->update($table, $data);
+    }
+
+    function hapus_pendaftar($where, $table){
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
     function export_data_pendaftar(){
         return $this->db->get('alumnis')->result();
     }

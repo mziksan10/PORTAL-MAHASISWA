@@ -21,6 +21,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+    <?= $this->session->flashdata('message'); ?>
       <div class="card">
       <div class="card-body">
         <div class="row">
@@ -76,8 +77,8 @@
       <td class="align-middle" style="text-align: center;">
       <a href="<?= base_url('admin/lihat_pendaftar/') . $row->id;?>" class="badge badge-primary" data-toggle="modal" data-target="#lihat"><i class="fas fa-eye"></i> Lihat Detail</a><br>
       <?php if($row->status == 0) :?>
-      <a href="<?= base_url('');?>" class="badge badge-success mb-2"><i class="fas fa-check"></i> Terima</a>
-      <a href="<?= base_url('');?>" class="badge badge-danger mb-2"><i class="fas fa-trash"></i> Tolak</a>
+      <a href="<?= base_url('admin/terima_pendaftar/'.$row->id); ?>" class="badge badge-success"><i class="fas fa-check"></i> Terima</a>
+      <a href="<?= base_url('admin/tolak_pendaftar/'.$row->id); ?>" class="badge badge-danger" ><i class="fas fa-trash"></i> Tolak</a>
       <?php elseif($row->status == 1) :?>
       <span class="badge badge-warning">Sudah diterima</span>
       <?php endif;?>

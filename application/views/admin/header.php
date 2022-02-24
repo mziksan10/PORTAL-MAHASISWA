@@ -103,10 +103,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('admin/informasi_dan_layanan'); ?>" class="nav-link">
-              <i class="nav-icon fas fa-paper-plane"></i>
+            <a href="#" class="nav-link btn-danger">
+              <i class="nav-icon fas fa-lock"></i>
               <p>
                 Informasi & Layanan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link btn-danger">
+            <i class="nav-icon fas fa-lock"></i>
+              <p>
+                Info Pengumuman
               </p>
             </a>
           </li>

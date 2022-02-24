@@ -6,7 +6,6 @@ class Mahasiswa extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->helper(array('form', 'url'));
         if(!isset($this->session->userdata['role_id'])){
             $this->session->set_flashdata(
                 'message',
